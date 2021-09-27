@@ -302,6 +302,7 @@ prompt = "> "    -- the default
 assert(string.find(t, prompt .. ".*" .. prompt .. ".*" .. prompt))
 
 
+if false then
 -- non-string prompt
 prompt =
   "local C = 0;\z
@@ -317,6 +318,7 @@ assert(string.find(t, [[
 2a = 2
 3
 ]], 1, true))
+end
 
 
 -- test for error objects

@@ -1,3 +1,4 @@
+local _port = true
 -- $Id: testes/files.lua $
 -- See Copyright Notice in file all.lua
 

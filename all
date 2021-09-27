@@ -1,8 +1,9 @@
-make -s -j
-cd testes/libs; make -s
+make clean -s -j
+rm -rf zig-out zig-cache && zig build
+cd testes/libs; make clean all -s
 cd ..     # back to directory 'testes'
 ulimit -S -s 1000
-if { ../lua -W all.lua; } then
+if { DYLD_LIBRARY_PATH=libs ../zig-out/bin/lua -W all.lua; } then
   echo -e "\n\n    final OK!!!!\n\n"
 else
   echo -e "\n\n    >>>> BUG!!!!\n\n"
