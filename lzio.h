@@ -44,9 +44,11 @@ typedef struct Mbuffer {
 #define luaZ_freebuffer(L, buff)	luaZ_resizebuffer(L, buff, 0)
 
 
+#ifndef LUA_ZIG
 LUAI_FUNC void luaZ_init (lua_State *L, ZIO *z, lua_Reader reader,
                                         void *data);
 LUAI_FUNC size_t luaZ_read (ZIO* z, void *b, size_t n);	/* read next n bytes */
+#endif
 
 
 
@@ -61,6 +63,8 @@ struct Zio {
 };
 
 
+#ifndef LUA_ZIG
 LUAI_FUNC int luaZ_fill (ZIO *z);
+#endif
 
 #endif

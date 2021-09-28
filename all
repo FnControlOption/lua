@@ -1,3 +1,4 @@
+set -e
 make clean -s -j
 rm -rf zig-out zig-cache && zig build
 cd testes/libs; make clean all -s

@@ -136,6 +136,7 @@ typedef void (*lua_WarnFunction) (void *ud, const char *msg, int tocont);
 /*
 ** generic extra include file
 */
+#include "ltests.h"
 #if defined(LUA_USER_H)
 #include LUA_USER_H
 #endif

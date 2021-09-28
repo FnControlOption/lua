@@ -1,8 +1,8 @@
-const Builder = @import("std").build.Builder;
+const std = @import("std");
 
-const cflags = &.{"-DLUA_USE_MACOSX", "-DLUA_USER_H=\"ltests.h\""};
+const cflags = &.{"-DLUA_USE_MACOSX"};
 
-pub fn build(b: *Builder) void {
+pub fn build(b: *std.build.Builder) void {
     const target = b.standardTargetOptions(.{});
     const mode = b.standardReleaseOptions();
 
@@ -10,6 +10,8 @@ pub fn build(b: *Builder) void {
     lib.setTarget(target);
     lib.setBuildMode(mode);
     lib.addCSourceFiles(libCSourceFiles(), cflags);
+    lib.addObject(zigObject(b, "lzio", "lzio.zig"));
+    lib.bundle_compiler_rt = true;
     lib.install();
 
     const exe = b.addExecutable("lua", null);
@@ -18,6 +20,12 @@ pub fn build(b: *Builder) void {
     exe.addCSourceFile("lua.c", cflags);
     exe.linkLibrary(lib);
     exe.install();
+}
+
+fn zigObject(b: *std.build.Builder, name: []const u8, root_src: []const u8) *std.build.LibExeObjStep {
+    const obj = b.addObject(name, root_src);
+    obj.addIncludeDir(".");
+    return obj;
 }
 
 fn libCSourceFiles() []const []const u8 {
@@ -41,7 +49,7 @@ fn libCSourceFiles() []const []const u8 {
         "ltm.c",
         "lundump.c",
         "lvm.c",
-        "lzio.c",
+        // "lzio.c",
         "ltests.c",
         "lauxlib.c",
         "lbaselib.c",
